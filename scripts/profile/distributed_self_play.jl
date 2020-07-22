@@ -4,7 +4,7 @@
 
 using Distributed
 
-addprocs(2, exeflags="--project")
+#addprocs(2, exeflags="--project")
 
 @everywhere using AlphaZero
 
@@ -23,7 +23,7 @@ struct Handler end
 AlphaZero.Handlers.game_played(::Handler) = next!(progress)
 
 println("Running $(Distributed.nworkers()) distributed worker(s).")
-println("Running on $(Threads.nthreads()) thread(s) for each worker.")
+@everywhere println("Running on $(Threads.nthreads()) thread(s).")
 
 report, t, mem, gct = @timed AlphaZero.self_play_step!(env, Handler())
 
