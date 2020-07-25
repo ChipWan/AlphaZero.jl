@@ -3,6 +3,9 @@
 #####
 
 using Distributed
+using LinearAlgebra
+
+#BLAS.set_num_threads(1)
 
 #addprocs(2, exeflags="--project")
 
