@@ -2,14 +2,14 @@ Network = ResNet
 
 netparams = ResNetHP(
   num_filters=128,
-  num_blocks=5,
+  num_blocks=15,
   conv_kernel_size=(3, 3),
   num_policy_head_filters=32,
   num_value_head_filters=32,
   batch_norm_momentum=0.1)
 
 self_play = SelfPlayParams(
-  num_games=4000,
+  num_games=6000,
   num_workers=128,
   use_gpu=true,
   reset_mcts_every=4,
@@ -37,20 +37,20 @@ learning = LearningParams(
   use_gpu=true,
   use_position_averaging=true,
   samples_weighing_policy=LOG_WEIGHT,
-  batch_size=2048,
-  loss_computation_batch_size=2048,
-  optimiser=Adam(lr=5e-4),
+  batch_size=1024,
+  loss_computation_batch_size=1024,
+  optimiser=Adam(lr=1e-3),
   l2_regularization=1e-4,
   nonvalidity_penalty=1.,
   min_checkpoints_per_epoch=1,
-  max_batches_per_checkpoint=1000,
+  max_batches_per_checkpoint=4000,
   num_checkpoints=1)
 
 params = Params(
   arena=nothing, # skipping this part for the demo
   self_play=self_play,
   learning=learning,
-  num_iters=10, # for the demo, 10 iterations should be enough
+  num_iters=15, # for the demo, 15 iterations should be enough
   ternary_rewards=true,
   use_symmetries=true,
   memory_analysis=nothing, # removed for the demo for more parallelism
